@@ -168,7 +168,7 @@
     <profile>
       <id>static_build_number</id>
       <properties>
-        <buildNumber>0</buildNumber>
+        <buildNumber>1</buildNumber>
       </properties>
     </profile>
     <profile>
@@ -198,8 +198,8 @@
                     <mutexName>Love Launcher</mutexName>
                     <windowTitle>Love Launcher</windowTitle>
                   </singleInstance>
-                  <jar>C:\Users\Nicolò\Documents\NetBeansProjects\Love Pack\target/launcher-1.0.0-0.jar</jar>
-                  <outfile>C:\Users\Nicolò\Documents\NetBeansProjects\Love Pack\target/launcher-1.0.0-0.exe</outfile>
+                  <jar>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.0-1.jar</jar>
+                  <outfile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.0-1.exe</outfile>
                   <classPath>
                     <mainClass>org.spoutcraft.launcher.entrypoint.Start</mainClass>
                     <addDependencies>false</addDependencies>
@@ -208,12 +208,12 @@
                   <jre>
                     <minVersion>1.5.0</minVersion>
                   </jre>
-                  <icon>C:\Users\Nicolò\Documents\NetBeansProjects\Love Pack/src/main/resources/exe/icon.ico</icon>
+                  <icon>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/exe/icon.ico</icon>
                   <versionInfo>
-                    <fileVersion>2.0.0.0</fileVersion>
-                    <txtFileVersion>2.0.0.0</txtFileVersion>
-                    <productVersion>2.0.0.0</productVersion>
-                    <txtProductVersion>2.0.0.0</txtProductVersion>
+                    <fileVersion>2.0.0.1</fileVersion>
+                    <txtFileVersion>2.0.0.1</txtFileVersion>
+                    <productVersion>2.0.0.1</productVersion>
+                    <txtProductVersion>2.0.0.1</txtProductVersion>
                     <fileDescription>Love Launcher</fileDescription>
                     <productName>Love Launcher</productName>
                     <copyright>TuttoCrafting, http://www.youtube.com/user/TuttoCrafting</copyright>
@@ -302,7 +302,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <buildNumber>0</buildNumber>
+    <buildNumber>1</buildNumber>
     <mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
     <currentYear>2013</currentYear>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

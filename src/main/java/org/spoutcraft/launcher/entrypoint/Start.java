@@ -107,7 +107,7 @@ public class Start {
 		int latest = version;
 		
 		try {
-			latest = RestAPI.getLatestLauncherBuild(buildStream);
+			latest = RestAPI.getLatestLauncherBuild(buildStream);                        
 			if (buildStream.equals("beta") && version < latest) {
 				update = true;
 			} else if (buildStream.equals("stable") && version != latest) {

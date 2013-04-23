@@ -149,7 +149,7 @@ public class Utils {
 	}
 
 	public static File selectInstallDir(File workDir) {
-		int result = JOptionPane.showConfirmDialog(splash, "No installation found. \n\nLove Launcher will install at: \n" + workDir.getAbsolutePath() + " \n\nWould you like to change the install directory?", "Install Technic Launcher", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		int result = JOptionPane.showConfirmDialog(splash, "No installation found. \n\nLove Launcher will install at: \n" + workDir.getAbsolutePath() + " \n\nWould you like to change the install directory?", "Install Love Launcher", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		if (result == JOptionPane.YES_OPTION) {
 			JFileChooser fileChooser = new JFileChooser(workDir);
 			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

@@ -6,7 +6,7 @@
 	<name>Love Launcher</name>
 	<groupId>org.spoutcraft</groupId>
 	<artifactId>launcher</artifactId>
-	<version>1.0.0-${buildNumber}</version>
+	<version>1.0.1-${buildNumber}</version>
 	<url>http://loveplatform.kytech.it/</url>
 	<inceptionYear>2013</inceptionYear>
 	<description>Custom launcher for installing and updating Modpacks with built-in byte patching for easy upgrading/downgrading of Minecraft versions.</description>
@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<currentYear>2013</currentYear>
 		<mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
-		<buildNumber>0</buildNumber>
+		<buildNumber>1</buildNumber>
 	</properties>
 
 	<!-- Company information -->
@@ -294,7 +294,7 @@
 	            </property>
 	        </activation>
 	        <properties>
-	            <buildNumber>0</buildNumber>
+	            <buildNumber>1</buildNumber>
 	        </properties>
 	    </profile>
 	    <profile>

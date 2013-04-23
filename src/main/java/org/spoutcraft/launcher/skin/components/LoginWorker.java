@@ -135,10 +135,10 @@ public class LoginWorker extends SwingWorker<Object, Object> {
 			loginFrame.getProgressBar().setVisible(false);
 			loginFrame.onEvent(Event.BAD_LOGIN);
 		} catch (MinecraftUserNotPremiumException e) {
-			//loginFrame.onEvent(Event.USER_NOT_PREMIUM);
-                        loginFrame.offline = true;
-			Launcher.getGameUpdater().setMinecraftUser(user);
-			loginFrame.onEvent(Event.MINECRAFT_NETWORK_DOWN);
+			loginFrame.onEvent(Event.USER_NOT_PREMIUM);
+                        //loginFrame.offline = true;
+			//Launcher.getGameUpdater().setMinecraftUser(user);
+			//loginFrame.onEvent(Event.MINECRAFT_NETWORK_DOWN);
 			loginFrame.getProgressBar().setVisible(false);
 		} catch (PermissionDeniedException e) {
 			loginFrame.onEvent(Event.PERMISSION_DENIED);

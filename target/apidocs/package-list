@@ -1,0 +1,16 @@
+net.minecraft
+org.spoutcraft.diff
+org.spoutcraft.launcher
+org.spoutcraft.launcher.api
+org.spoutcraft.launcher.entrypoint
+org.spoutcraft.launcher.exceptions
+org.spoutcraft.launcher.launch
+org.spoutcraft.launcher.rest
+org.spoutcraft.launcher.skin
+org.spoutcraft.launcher.skin.components
+org.spoutcraft.launcher.technic
+org.spoutcraft.launcher.technic.rest
+org.spoutcraft.launcher.technic.rest.pack
+org.spoutcraft.launcher.technic.skin
+org.spoutcraft.launcher.util
+org.spoutcraft.launcher.yml

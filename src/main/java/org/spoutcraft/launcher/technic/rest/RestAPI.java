@@ -272,7 +272,7 @@ public class RestAPI {
 	}
 
 	public static int getLatestLauncherBuild(String stream) throws RestfulAPIException {
-		LauncherBuild result = getRestObject(LauncherBuild.class, getUpdateURL() + "launcher/version/" + stream);
+		LauncherBuild result = getRestObject(LauncherBuild.class, getUpdateURL() + "launcher/version/" + stream + "/");
 		return result.getLatestBuild();
 	}
 	
