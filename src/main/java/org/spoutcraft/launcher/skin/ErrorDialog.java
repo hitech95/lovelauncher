@@ -1,7 +1,7 @@
 /*
  * This file is part of Love Launcher.
  *
- * Copyright (c) 2013-2013, TuttoCrafting <http://www.youtube.com/user/TuttoCrafting/>
+ * Copyright (c) 2013-2013, LovePlatform <http://loveplatform.kytech.it/>
  * Love Launcher is licensed under the Spout License Version 1.
  *
  * Love Launcher is free software: you can redistribute it and/or modify

@@ -16,13 +16,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<currentYear>2013</currentYear>
 		<mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
-		<buildNumber>1</buildNumber>
+		<buildNumber>2</buildNumber>
 	</properties>
 
 	<!-- Company information -->
 	<organization>
-		<url>http://www.youtube.com/user/TuttoCrafting</url>
-		<name>TuttoCrafting</name>
+		<url>http://loveplatform.kytech.it</url>
+		<name>LovePlatform</name>
 	</organization>
 
 	<!-- License information -->
@@ -294,7 +294,7 @@
 	            </property>
 	        </activation>
 	        <properties>
-	            <buildNumber>1</buildNumber>
+	            <buildNumber>2</buildNumber>
 	        </properties>
 	    </profile>
 	    <profile>
