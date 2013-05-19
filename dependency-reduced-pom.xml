@@ -168,7 +168,7 @@
     <profile>
       <id>static_build_number</id>
       <properties>
-        <buildNumber>2</buildNumber>
+        <buildNumber>3</buildNumber>
       </properties>
     </profile>
     <profile>
@@ -198,8 +198,8 @@
                     <mutexName>Love Launcher</mutexName>
                     <windowTitle>Love Launcher</windowTitle>
                   </singleInstance>
-                  <jar>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-2.jar</jar>
-                  <outfile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-2.exe</outfile>
+                  <jar>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-3.jar</jar>
+                  <outfile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-3.exe</outfile>
                   <classPath>
                     <mainClass>org.spoutcraft.launcher.entrypoint.Start</mainClass>
                     <addDependencies>false</addDependencies>
@@ -210,10 +210,10 @@
                   </jre>
                   <icon>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/exe/icon.ico</icon>
                   <versionInfo>
-                    <fileVersion>2.0.0.2</fileVersion>
-                    <txtFileVersion>2.0.0.2</txtFileVersion>
-                    <productVersion>2.0.0.2</productVersion>
-                    <txtProductVersion>2.0.0.2</txtProductVersion>
+                    <fileVersion>2.0.0.3</fileVersion>
+                    <txtFileVersion>2.0.0.3</txtFileVersion>
+                    <productVersion>2.0.0.3</productVersion>
+                    <txtProductVersion>2.0.0.3</txtProductVersion>
                     <fileDescription>Love Launcher</fileDescription>
                     <productName>Love Launcher</productName>
                     <copyright>LovePlatform, http://loveplatform.kytech.it</copyright>
@@ -244,11 +244,11 @@
                 <configuration>
                   <mainClass>org.spoutcraft.launcher.entrypoint.Start</mainClass>
                   <bundleName>Love Launcher</bundleName>
-                  <version>1.0.1-2</version>
+                  <version>1.0.1-3</version>
                   <iconFile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/app/icon.icns</iconFile>
                   <dictionaryFile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/app/Info.plist.template</dictionaryFile>
                   <javaApplicationStub>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/app/JavaApplicationStub</javaApplicationStub>
-                  <zipFile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-2-app.zip</zipFile>
+                  <zipFile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-3-app.zip</zipFile>
                   <internetEnable>true</internetEnable>
                   <jvmVersion>1.5+</jvmVersion>
                   <vmOptions>-Xms512M -Xmx1024M -Xdock:name=Spoutcraft -Xdock:icon="icon.icns"</vmOptions>
@@ -302,7 +302,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <buildNumber>2</buildNumber>
+    <buildNumber>3</buildNumber>
     <mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
     <currentYear>2013</currentYear>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

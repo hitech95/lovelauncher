@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<currentYear>2013</currentYear>
 		<mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
-		<buildNumber>2</buildNumber>
+		<buildNumber>3</buildNumber>
 	</properties>
 
 	<!-- Company information -->
@@ -294,7 +294,7 @@
 	            </property>
 	        </activation>
 	        <properties>
-	            <buildNumber>2</buildNumber>
+	            <buildNumber>3</buildNumber>
 	        </properties>
 	    </profile>
 	    <profile>
@@ -389,8 +389,8 @@
 									<javaApplicationStub>${project.basedir}/src/main/resources/app/JavaApplicationStub</javaApplicationStub>
 									<zipFile>${project.build.directory}/${project.build.finalName}-app.zip</zipFile>
 									<internetEnable>true</internetEnable>
-									<jvmVersion>1.5+</jvmVersion>
-									<vmOptions>-Xms512M -Xmx1024M -Xdock:name=Spoutcraft -Xdock:icon="icon.icns"</vmOptions>
+									<jvmVersion>1.6+</jvmVersion>
+									<vmOptions>-Xms512M -Xmx1024M -Xdock:name=LoveLauncher -Xdock:icon="icon.icns"</vmOptions>
 									<excludeArtifactIds>
 										<excludeArtifactId>commons-io</excludeArtifactId>
 										<excludeArtifactId>commons-codec</excludeArtifactId>
