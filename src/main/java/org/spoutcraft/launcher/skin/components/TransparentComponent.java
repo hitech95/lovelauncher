@@ -1,182 +1,146 @@
 /*
- * This file is part of Love Launcher.
- *
- * Copyright (c) 2013-2013, LovePlatform <http://loveplatform.kytech.it/>
- * Love Launcher is licensed under the Spout License Version 1.
- *
- * Love Launcher is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * In addition, 180 days after any changes are published, you can use the
- * software, incorporating those changes, under the terms of the MIT license,
- * as described in the Spout License Version 1.
- *
- * Love Launcher is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License,
- * the MIT license and the Spout License Version 1 along with this program.
- * If not, see <http://www.gnu.org/licenses/> for the GNU Lesser General Public
- * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
- * including the MIT license.
- */
-/*
  * This file is part of Technic Launcher.
- *
- * Copyright (c) 2013-2013, Technic <http://www.technicpack.net/>
- * Technic Launcher is licensed under the Spout License Version 1.
+ * Copyright (C) 2013 Syndicate, LLC
  *
  * Technic Launcher is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * In addition, 180 days after any changes are published, you can use the
- * software, incorporating those changes, under the terms of the MIT license,
- * as described in the Spout License Version 1.
  *
  * Technic Launcher is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License,
- * the MIT license and the Spout License Version 1 along with this program.
- * If not, see <http://www.gnu.org/licenses/> for the GNU Lesser General Public
- * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
- * including the MIT license.
+ * You should have received a copy of the GNU General Public License
+ * along with Technic Launcher.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.spoutcraft.launcher.skin.components;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JComponent;
 
 /**
  * Adds transparency to a swing component
  */
-class TransparentComponent implements MouseListener{
-	private final JComponent parent;
-	private float transparency = 1F;
-	private float hoverTransparency = 1F;
-	private boolean hovering = false;
-	private final boolean repaint;
-	public TransparentComponent(JComponent component) {
-		this.parent = component;
-		parent.addMouseListener(this);
-		repaint = true;
-	}
+class TransparentComponent implements MouseListener {
+    private final JComponent parent;
+    private float transparency = 1F;
+    private float hoverTransparency = 1F;
+    private boolean hovering = false;
+    private final boolean repaint;
 
-	public TransparentComponent(JComponent component, boolean repaint) {
-		this.parent = component;
-		parent.addMouseListener(this);
-		this.repaint = repaint;
-	}
+    public TransparentComponent(JComponent component) {
+        this.parent = component;
+        parent.addMouseListener(this);
+        repaint = true;
+    }
 
-	/**
-	 * Gets the transparency of the label when no mouse is hovering over it
-	 *
-	 * Values are between 0 and 1
-	 *
-	 * @return transparency
-	 */
-	public float getTransparency() {
-		return transparency;
-	}
+    public TransparentComponent(JComponent component, boolean repaint) {
+        this.parent = component;
+        parent.addMouseListener(this);
+        this.repaint = repaint;
+    }
 
-	/**
-	 * Sets the transparency of the label when no mouse is hovering over it
-	 *
-	 * Values should be between 0 and 1
-	 *
-	 * @param t transparency
-	 */
-	public void setTransparency(float t) {
-		if (t > 1F || t < 0F) {
-			throw new IllegalArgumentException("Value out of range");
-		}
-		this.transparency = t;
-	}
+    /**
+     * Gets the transparency of the label when no mouse is hovering over it
+     * <p/>
+     * Values are between 0 and 1
+     *
+     * @return transparency
+     */
+    public float getTransparency() {
+        return transparency;
+    }
 
-	/**
-	 * Gets the transparency of the label when a mouse is hovering over it
-	 *
-	 * Values are between 0 and 1
-	 *
-	 * @return transparency
-	 */
-	public float getHoverTransparency() {
-		return hoverTransparency;
-	}
+    /**
+     * Sets the transparency of the label when no mouse is hovering over it
+     * <p/>
+     * Values should be between 0 and 1
+     *
+     * @param t transparency
+     */
+    public void setTransparency(float t) {
+        if (t > 1F || t < 0F) {
+            throw new IllegalArgumentException("Value out of range");
+        }
+        this.transparency = t;
+    }
 
-	/**
-	 * Sets the transparency of the label when a mouse is hovering over it
-	 *
-	 * Values should be between 0 and 1
-	 *
-	 * @param t transparency
-	 */
-	public void setHoverTransparency(float t) {
-		if (t > 1F || t < 0F) {
-			throw new IllegalArgumentException("Value out of range");
-		}
-		this.hoverTransparency = t;
-	}
+    /**
+     * Gets the transparency of the label when a mouse is hovering over it
+     * <p/>
+     * Values are between 0 and 1
+     *
+     * @return transparency
+     */
+    public float getHoverTransparency() {
+        return hoverTransparency;
+    }
 
-	public Graphics setup(Graphics g) {
-		float t;
-		if (hovering) {
-			t = getHoverTransparency();
-		} else {
-			t = getTransparency();
-		}
-		Graphics2D copy = (Graphics2D) g.create();
-		copy.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, t));
-		return copy;
-	}
+    /**
+     * Sets the transparency of the label when a mouse is hovering over it
+     * <p/>
+     * Values should be between 0 and 1
+     *
+     * @param t transparency
+     */
+    public void setHoverTransparency(float t) {
+        if (t > 1F || t < 0F) {
+            throw new IllegalArgumentException("Value out of range");
+        }
+        this.hoverTransparency = t;
+    }
 
-	public Graphics cleanup(Graphics g) {
-		g.dispose();
-		return g;
-	}
+    public Graphics setup(Graphics g) {
+        float t;
+        if (hovering) {
+            t = getHoverTransparency();
+        } else {
+            t = getTransparency();
+        }
+        Graphics2D copy = (Graphics2D) g.create();
+        copy.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, t));
+        return copy;
+    }
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+    public Graphics cleanup(Graphics g) {
+        g.dispose();
+        return g;
+    }
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		if (e.getComponent() == parent) {
-			hovering = true;
-			if (repaint) {
-				parent.repaint();
-			}
-		}
-	}
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		if (e.getComponent() == parent) {
-			hovering = false;
-			if (repaint) {
-				parent.repaint();
-			}
-		}
-	}
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if (e.getComponent() == parent) {
+            hovering = true;
+            if (repaint) {
+                parent.repaint();
+            }
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getComponent() == parent) {
+            hovering = false;
+            if (repaint) {
+                parent.repaint();
+            }
+        }
+    }
 }

@@ -4,23 +4,10 @@
   <groupId>org.spoutcraft</groupId>
   <artifactId>launcher</artifactId>
   <name>Love Launcher</name>
-  <version>1.0.1-${buildNumber}</version>
-  <description>Custom launcher for installing and updating Modpacks with built-in byte patching for easy upgrading/downgrading of Minecraft versions.</description>
-  <url>http://loveplatform.kytech.it/</url>
+  <version>2.0-${buildNumber}</version>
+  <description>Minecraft launcher for installing and updating Modpacks from the Love Platform.</description>
+  <url>http://loveplatform.kytech.it</url>
   <inceptionYear>2013</inceptionYear>
-  <licenses>
-    <license>
-      <name>Spout License Version 1</name>
-      <url>http://cdn.spout.org/license/spoutv1.txt</url>
-      <distribution>repo</distribution>
-      <comments>GNU Lesser General Public License Version 3, but with a provision that files are released under the MIT license 180 days after they are published</comments>
-    </license>
-  </licenses>
-  <scm>
-    <connection>scm:git:git://github.com/hitech95/lovelauncher.git</connection>
-    <developerConnection>scm:git:git@github.com:hitech95/lovelauncher.git</developerConnection>
-    <url>https://github.com/hitech95/lovelauncher.git</url>
-  </scm>
   <organization>
     <name>LovePlatform</name>
     <url>http://loveplatform.kytech.it</url>
@@ -44,7 +31,6 @@
         <excludes>
           <exclude>app/*</exclude>
           <exclude>exe/*</exclude>
-          <exclude>jalopy.xml</exclude>
         </excludes>
       </resource>
       <resource>
@@ -57,41 +43,6 @@
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <groupId>com.mycila.maven-license-plugin</groupId>
-        <artifactId>maven-license-plugin</artifactId>
-        <version>1.10.b1</version>
-        <executions>
-          <execution>
-            <phase>clean</phase>
-            <goals>
-              <goal>format</goal>
-            </goals>
-            <configuration>
-              <properties>
-                <name>${project.name}</name>
-                <url>${project.organization.url}</url>
-                <copyright>Copyright (c) ${project.inceptionYear}-${currentYear}, ${project.organization.name}</copyright>
-              </properties>
-              <quiet>true</quiet>
-              <encoding>UTF-8</encoding>
-              <strictCheck>true</strictCheck>
-              <header>${basedir}/HEADER.txt</header>
-              <mapping>
-                <java>SLASHSTAR_STYLE</java>
-              </mapping>
-              <keywords>
-                <keyword>${project.name}</keyword>
-                <keyword>license</keyword>
-              </keywords>
-              <includes>
-                <include>src/main/java/**</include>
-                <include>src/test/java/**</include>
-              </includes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.0</version>
@@ -162,13 +113,31 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>osx.app</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>${basedir}/src/main/assembly/app.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <profiles>
     <profile>
       <id>static_build_number</id>
       <properties>
-        <buildNumber>3</buildNumber>
+        <buildNumber>0</buildNumber>
       </properties>
     </profile>
     <profile>
@@ -194,12 +163,8 @@
                 <configuration>
                   <headerType>gui</headerType>
                   <stayAlive>false</stayAlive>
-                  <singleInstance>
-                    <mutexName>Love Launcher</mutexName>
-                    <windowTitle>Love Launcher</windowTitle>
-                  </singleInstance>
-                  <jar>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-3.jar</jar>
-                  <outfile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-3.exe</outfile>
+                  <jar>C:\Users\M2K\Documents\NetBeansProjects\Eternalove\LoveLauncher\target/launcher-2.0-0.jar</jar>
+                  <outfile>C:\Users\M2K\Documents\NetBeansProjects\Eternalove\LoveLauncher\target/launcher-2.0-0.exe</outfile>
                   <classPath>
                     <mainClass>org.spoutcraft.launcher.entrypoint.Start</mainClass>
                     <addDependencies>false</addDependencies>
@@ -208,12 +173,12 @@
                   <jre>
                     <minVersion>1.5.0</minVersion>
                   </jre>
-                  <icon>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/exe/icon.ico</icon>
+                  <icon>C:\Users\M2K\Documents\NetBeansProjects\Eternalove\LoveLauncher/src/main/resources/exe/icon.ico</icon>
                   <versionInfo>
-                    <fileVersion>2.0.0.3</fileVersion>
-                    <txtFileVersion>2.0.0.3</txtFileVersion>
-                    <productVersion>2.0.0.3</productVersion>
-                    <txtProductVersion>2.0.0.3</txtProductVersion>
+                    <fileVersion>3.0.0.0</fileVersion>
+                    <txtFileVersion>3.0.0.0</txtFileVersion>
+                    <productVersion>3.0.0.0</productVersion>
+                    <txtProductVersion>3.0.0.0</txtProductVersion>
                     <fileDescription>Love Launcher</fileDescription>
                     <productName>Love Launcher</productName>
                     <copyright>LovePlatform, http://loveplatform.kytech.it</copyright>
@@ -227,84 +192,10 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <id>package-mac</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.spout</groupId>
-            <artifactId>osxapp-maven-plugin</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>bundle</goal>
-                </goals>
-                <configuration>
-                  <mainClass>org.spoutcraft.launcher.entrypoint.Start</mainClass>
-                  <bundleName>Love Launcher</bundleName>
-                  <version>1.0.1-3</version>
-                  <iconFile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/app/icon.icns</iconFile>
-                  <dictionaryFile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/app/Info.plist.template</dictionaryFile>
-                  <javaApplicationStub>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher/src/main/resources/app/JavaApplicationStub</javaApplicationStub>
-                  <zipFile>C:\Users\Nicolò\Documents\NetBeansProjects\lovelauncher\target/launcher-1.0.1-3-app.zip</zipFile>
-                  <internetEnable>true</internetEnable>
-                  <jvmVersion>1.5+</jvmVersion>
-                  <vmOptions>-Xms512M -Xmx1024M -Xdock:name=Spoutcraft -Xdock:icon="icon.icns"</vmOptions>
-                  <excludeArtifactIds>
-                    <excludeArtifactId>commons-io</excludeArtifactId>
-                    <excludeArtifactId>commons-codec</excludeArtifactId>
-                    <excludeArtifactId>jackson-core-asl</excludeArtifactId>
-                    <excludeArtifactId>jackson-mapper-asl</excludeArtifactId>
-                    <excludeArtifactId>jcommander</excludeArtifactId>
-                    <excludeArtifactId>jdom</excludeArtifactId>
-                    <excludeArtifactId>rome</excludeArtifactId>
-                    <excludeArtifactId>snakeyaml</excludeArtifactId>
-                    <excludeArtifactId>swing-layout</excludeArtifactId>
-                    <excludeArtifactId>swing-worker</excludeArtifactId>
-                  </excludeArtifactIds>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
-  <repositories>
-    <repository>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-      <id>spout-repo</id>
-      <url>http://repo.spout.org</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>spout-repo</id>
-      <url>http://repo.spout.org</url>
-    </pluginRepository>
-  </pluginRepositories>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>hamcrest-core</artifactId>
-          <groupId>org.hamcrest</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-  </dependencies>
   <properties>
-    <buildNumber>3</buildNumber>
+    <buildNumber>0</buildNumber>
     <mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
-    <currentYear>2013</currentYear>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>

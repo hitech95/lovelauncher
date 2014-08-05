@@ -1,181 +1,149 @@
 /*
- * This file is part of Love Launcher.
- *
- * Copyright (c) 2013-2013, LovePlatform <http://loveplatform.kytech.it/>
- * Love Launcher is licensed under the Spout License Version 1.
- *
- * Love Launcher is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * In addition, 180 days after any changes are published, you can use the
- * software, incorporating those changes, under the terms of the MIT license,
- * as described in the Spout License Version 1.
- *
- * Love Launcher is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License,
- * the MIT license and the Spout License Version 1 along with this program.
- * If not, see <http://www.gnu.org/licenses/> for the GNU Lesser General Public
- * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
- * including the MIT license.
- */
-/*
  * This file is part of Technic Launcher.
- *
- * Copyright (c) 2013-2013, Technic <http://www.technicpack.net/>
- * Technic Launcher is licensed under the Spout License Version 1.
+ * Copyright (C) 2013 Syndicate, LLC
  *
  * Technic Launcher is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * In addition, 180 days after any changes are published, you can use the
- * software, incorporating those changes, under the terms of the MIT license,
- * as described in the Spout License Version 1.
  *
  * Technic Launcher is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License,
- * the MIT license and the Spout License Version 1 along with this program.
- * If not, see <http://www.gnu.org/licenses/> for the GNU Lesser General Public
- * License and see <http://www.spout.org/SpoutDevLicenseV1.txt> for the full license,
- * including the MIT license.
+ * You should have received a copy of the GNU General Public License
+ * along with Technic Launcher.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.spoutcraft.launcher.entrypoint;
 
+import net.technicpack.launchercore.exception.RestfulAPIException;
+import net.technicpack.launchercore.mirror.download.Download;
+import net.technicpack.launchercore.util.*;
+import org.spoutcraft.launcher.settings.LauncherDirectories;
+import org.spoutcraft.launcher.skin.ProgressSplashScreen;
+import org.spoutcraft.launcher.updater.LauncherInfo;
+
+import javax.swing.*;
 import java.io.File;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.UIManager;
-
-import org.spoutcraft.launcher.Settings;
-import org.spoutcraft.launcher.exceptions.RestfulAPIException;
-import org.spoutcraft.launcher.technic.rest.RestAPI;
-import org.spoutcraft.launcher.util.Download;
-import org.spoutcraft.launcher.util.DownloadListener;
-import org.spoutcraft.launcher.util.Utils;
-import org.spoutcraft.launcher.util.OperatingSystem;
-
 public class Start {
-	public static void main(String[] args) {
-		try {
-			launch(args);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        try {
+            launch(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	private static void launch(String[] args) throws Exception {
-		// Text for local build (not official build)
-		if (SpoutcraftLauncher.getLauncherBuild().equals("0")) {
-			SpoutcraftLauncher.main(args);
-			return;
-		}
+    private static void launch(String[] args) throws Exception {
+        // Text for local build (not official build)
+        if (SpoutcraftLauncher.getLauncherBuild().equals("0")) {
+            SpoutcraftLauncher.main(args);
+            return;
+        }
 
-		// Test for exe relaunch
-		SpoutcraftLauncher.setupLogger().info("Args: " + Arrays.toString(args));
-		if (args.length > 0 && (args[0].equals("-Mover") || args[0].equals("-Launcher"))) {
-			String[] argsCopy = new String[args.length - 1];
-			for (int i = 1; i < args.length; i++) {
-				argsCopy[i-1] = args[i];
-			}
-			if (args[0].equals("-Mover")) {
-				Mover.main(argsCopy, true);
-			} else {
-				SpoutcraftLauncher.main(argsCopy);
-			}
-			return;
-		}
+        Directories.instance = new LauncherDirectories();
 
-		Utils.getLauncherDirectory();
-		boolean update = false;
+        // Test for exe relaunch
+        SpoutcraftLauncher.setupLogger().info("Args: " + Arrays.toString(args));
+        if (args.length > 0 && (args[0].equals("-Mover") || args[0].equals("-Launcher"))) {
+            String[] argsCopy = new String[args.length - 1];
 
-		int version = Integer.parseInt(SpoutcraftLauncher.getLauncherBuild());
-		String buildStream = Settings.getBuildStream();
-		int latest = version;
-		
-		try {
-			latest = RestAPI.getLatestLauncherBuild(buildStream);                        
-			if (buildStream.equals("beta") && version < latest) {
-				update = true;
-			} else if (buildStream.equals("stable") && version != latest) {
-				update = true;
-			}
-		} catch (RestfulAPIException e) {
-			e.printStackTrace();
-		}
-		
-		if (update) {
-			File codeSource = new File(URLDecoder.decode(Start.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8"));
-			File temp;
-			if (codeSource.getName().endsWith(".exe")) {
-				temp = new File(Utils.getSettingsDirectory(), "temp.exe");
-			} else {
-				temp = new File(Utils.getSettingsDirectory(), "temp.jar");
-			}
+            System.arraycopy(args, 1, argsCopy, 0, args.length - 1);
 
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception e) {
-			}
+            if (args[0].equals("-Mover")) {
+                Mover.main(argsCopy, true);
+            } else {
+                SpoutcraftLauncher.main(argsCopy);
+            }
+            return;
+        }
 
-			ProgressSplashScreen splash = new ProgressSplashScreen();
-			Download download = new Download(RestAPI.getLauncherDownloadURL(latest, !codeSource.getName().endsWith(".exe")), temp.getPath());
-			download.setListener(new LauncherDownloadListener(splash));
-			download.run();
+        Utils.getLauncherDirectory();
+        boolean update = false;
 
-			ProcessBuilder processBuilder = new ProcessBuilder();
-			ArrayList<String> commands = new ArrayList<String>();
-			if (!codeSource.getName().endsWith(".exe")) {
-				if (OperatingSystem.getOS().isWindows()) {
-					commands.add("javaw");
-				} else {
-					commands.add("java");
-				}
-				commands.add("-Xmx256m");
-				commands.add("-cp");
-				commands.add(temp.getAbsolutePath());
-				commands.add(Mover.class.getName());
-			} else {
-				commands.add(temp.getAbsolutePath());
-				commands.add("-Mover");
-			}
-			commands.add(codeSource.getAbsolutePath());
-			commands.addAll(Arrays.asList(args));
-			processBuilder.command(commands);
+        int version = Integer.parseInt(SpoutcraftLauncher.getLauncherBuild());
+        String buildStream = Settings.getBuildStream();
+        int latest = version;
 
-			try {
-				processBuilder.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			System.exit(0);
-		} else {
-			SpoutcraftLauncher.main(args);
-		}
-	}
+        try {
+            latest = LauncherInfo.getLatestBuild(buildStream);
+            if (buildStream.equals("beta") && version < latest) {
+                update = true;
+            } else if (buildStream.equals("stable") && version != latest) {
+                update = true;
+            }
+        } catch (RestfulAPIException e) {
+            e.printStackTrace();
+        }
 
-	private static class LauncherDownloadListener implements DownloadListener {
-		private final ProgressSplashScreen screen;
-		LauncherDownloadListener(ProgressSplashScreen screen) {
-			this.screen = screen;
-		}
+        if (update) {
+            File codeSource = new File(URLDecoder.decode(Start.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8"));
+            File temp;
+            if (codeSource.getName().endsWith(".exe")) {
+                temp = new File(Utils.getSettingsDirectory(), "temp.exe");
+            } else {
+                temp = new File(Utils.getSettingsDirectory(), "temp.jar");
+            }
 
-		@Override
-		public void stateChanged(String text, float progress) {
-			screen.updateProgress((int)progress);
-		}
-	}
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            ProgressSplashScreen splash = new ProgressSplashScreen();
+            Download download = new Download(new URL(LauncherInfo.getDownloadURL(latest, !codeSource.getName().endsWith(".exe"))), temp.getName(), temp.getPath());
+            download.setListener(new LauncherDownloadListener(splash));
+            download.run();
+
+            ProcessBuilder processBuilder = new ProcessBuilder();
+            ArrayList<String> commands = new ArrayList<String>();
+            if (!codeSource.getName().endsWith(".exe")) {
+                if (OperatingSystem.getOperatingSystem().equals(OperatingSystem.WINDOWS)) {
+                    commands.add("javaw");
+                } else {
+                    commands.add("java");
+                }
+                commands.add("-Xmx256m");
+                commands.add("-cp");
+                commands.add(temp.getAbsolutePath());
+                commands.add(Mover.class.getName());
+            } else {
+                commands.add(temp.getAbsolutePath());
+                commands.add("-Mover");
+            }
+            commands.add(codeSource.getAbsolutePath());
+            commands.addAll(Arrays.asList(args));
+            processBuilder.command(commands);
+
+            try {
+                processBuilder.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.exit(0);
+        } else {
+            SpoutcraftLauncher.main(args);
+        }
+    }
+
+    private static class LauncherDownloadListener implements DownloadListener {
+        private final ProgressSplashScreen screen;
+
+        LauncherDownloadListener(ProgressSplashScreen screen) {
+            this.screen = screen;
+        }
+
+        @Override
+        public void stateChanged(String text, float progress) {
+            screen.updateProgress((int) progress);
+        }
+    }
 }
