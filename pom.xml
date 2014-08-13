@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
-        <buildNumber>${buildNumber}</buildNumber>
+        <buildNumber>0</buildNumber>
     </properties>
 
     <!-- Company information -->
